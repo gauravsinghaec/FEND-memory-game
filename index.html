@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matching Game</title>
     <meta name="description" content="">
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
@@ -17,70 +19,42 @@
 
         <section class="score-panel">
         	<ul class="stars">
-        		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star"></i></li>
+            <!--Content will be created dynamically using app.js -->
         	</ul>
 
         	<span class="moves">3</span> Moves
+
+            <span class="time">0</span> Sec
 
             <div class="restart">
         		<i class="fa fa-repeat"></i>
         	</div>
         </section>
-
-        <ul class="deck">
-            <li class="card">
-                <i class="fa fa-diamond"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-paper-plane-o"></i>
-            </li>
-            <li class="card match">
-                <i class="fa fa-anchor"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-bolt"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-cube"></i>
-            </li>
-            <li class="card match">
-                <i class="fa fa-anchor"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-leaf"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-bicycle"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-diamond"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-bomb"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-leaf"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-bomb"></i>
-            </li>
-            <li class="card open show">
-                <i class="fa fa-bolt"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-bicycle"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-paper-plane-o"></i>
-            </li>
-            <li class="card">
-                <i class="fa fa-cube"></i>
-            </li>
-        </ul>
+        <section id="deck-board">
+            <ul class="deck">
+                <!--Content will be created dynamically using app.js -->
+            </ul>
+        </section>
+        <!-- The Modal -->
+        <div id="winning-modal" class="modal hidden">
+        <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div class="trophy">
+                    <i class="fa fa-trophy"></i>
+                </div>
+                <div class="greeting">
+                    <h1>Congradulations!! You Won!</h1>
+                    <p>In <span id="playerTime"></span> seconds</p>
+                    <p>With <span id="playMoves"></span> moves and <span id="playStar"></span> Stars.</p>
+                    <p>Bazzingaaaaaa!</p>
+                </div>
+                <div class="replayGame">
+                    <button id="replay">REPLAY</button>
+                </div>
+            </div>
+        </div>
     </div>
-
     <script src="js/app.js"></script>
 </body>
 </html>
