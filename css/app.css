@@ -252,7 +252,6 @@ h1 {
   padding: 20px;
   border: 1px solid #888;
   width: 60%;
-  /* Could be more or less, depending on screen size */
   border-radius: 0.5em; }
 
 .modal-content .trophy {
@@ -266,6 +265,10 @@ h1 {
   padding: 0.8em 1.2em;
   border-radius: 0.5em;
   background: #02ccba; }
+
+@media screen and (max-width: 50em) {
+  .modal-content {
+    width: 90%; } }
 
 /* The Close Button */
 .close {

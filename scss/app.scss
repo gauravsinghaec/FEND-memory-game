@@ -223,7 +223,7 @@ h1 {
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 60%; /* Could be more or less, depending on screen size */
+    width: 60%;
     border-radius: 0.5em;
 }
 
@@ -240,6 +240,12 @@ h1 {
     padding: 0.8em 1.2em;
     border-radius: 0.5em;
     background: #02ccba;
+}
+
+@media screen and (max-width: 50em){
+    .modal-content {
+        width: 90%;
+    }
 }
 
 /* The Close Button */
