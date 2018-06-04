@@ -3,6 +3,7 @@
 const openCardList = [];
 const totalCards = document.getElementsByClassName('card');
 const matchedCards = document.getElementsByClassName('card match');
+let t = 0;
 
 //************************
 /* *******Model
@@ -183,6 +184,18 @@ let cardListView = {
 
 				if(curr_card.classList[0] !== 'card') return;
 
+				/*
+				 * increment the timer by 1 sec at each sec of interval
+				 * use 't' to clear the time interval event when user wins
+				 * start the timer only when user clicks on card first time
+				 */
+				if(!t){
+					t = window.setInterval(function() {
+						let x = document.getElementsByClassName('time')[0].textContent;
+						document.getElementsByClassName('time')[0].textContent
+								= (parseInt(x, 10) + 1);
+					}, 1000);
+				}
 				if(curr_card.classList[1] === 'match'){
 				/*
 				 * Check if user clicks the matched card, if so
@@ -339,13 +352,3 @@ function mismatchCards(...cards) {
  * Load the game page views once DOM is loaded
  */
 window.addEventListener('DOMContentLoaded',controller.init(),false);
-
-/*
- * increment the timer by 1 sec at each sec of interval
- * use 't' to clear the time interval event when user wins
- */
-let t = setInterval(function() {
-	let x = document.getElementsByClassName('time')[0].textContent;
-	document.getElementsByClassName('time')[0].textContent
-			= (parseInt(x, 10) + 1);
-}, 1000);
