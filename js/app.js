@@ -216,6 +216,10 @@ let cardListView = {
 				 * the two cards match
 				 */
 					const prev_card = openCardList.pop();
+					if(prev_card === curr_card){
+						openCardList.push(curr_card);
+						return;
+					}
 					//update moves and start on page
 					controller.updateMove();
 					controller.updateStar();
