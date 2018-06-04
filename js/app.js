@@ -247,8 +247,27 @@ let cardListView = {
 					/*
 					 * if the cards do not match, remove the cards from the
 					 * list and hide the card's symbol
+					 * Using setTimeout to delay the mismatch css efect on card
+					 * so that animation related to flipping (which will be
+					 * applied by unhide function) of the 2nd card
+					 * of the move can be observed.
 					 */
-						mismatchCards(curr_card,prev_card);
+						setTimeout(function(...cards){
+							/*
+							 * if the cards do not match the do the following:
+							 * 1. Add mismatch class for animation effect before hiding
+							 * 2. Hide the card's symbol
+							 * and we are using closures to have access to cards
+							 */
+							for(const card of cards){
+								card.classList.add('mismatch');
+							}
+							return function mismatchCards() {
+								for(const card of cards){
+									card.classList.remove('open', 'show');
+								}
+							};
+						}(curr_card,prev_card),500);
 					}
 				}
 			},false);
@@ -331,21 +350,6 @@ function matchCards(...cards) {
 		card.classList.add('match');
 	}
 	checkGameStatus();
-}
-
-/*
- * if the cards do not match, hide the card's symbol
- * and add mismatch class for animation effect
- * @param:
- * 		...cards (data type: array): two cards of a given move
- * @returns:
- * 		None
- */
-function mismatchCards(...cards) {
-	for(const card of cards){
-		card.classList.remove('open', 'show');
-		card.classList.add('mismatch');
-	}
 }
 
 /*
