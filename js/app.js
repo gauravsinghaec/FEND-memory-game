@@ -19,19 +19,12 @@ let model = {
         ,'fa fa-anchor'
         ,'fa fa-bolt'
         ,'fa fa-cube'
-        ,'fa fa-anchor'
         ,'fa fa-leaf'
         ,'fa fa-bicycle'
-        ,'fa fa-diamond'
-        ,'fa fa-bomb'
-        ,'fa fa-leaf'
-        ,'fa fa-bomb'
-        ,'fa fa-bolt'
-        ,'fa fa-bicycle'
-        ,'fa fa-paper-plane-o'
-        ,'fa fa-cube'
-    ]
+        ,'fa fa-bomb'    ]
 };
+
+model.cards = [...model.cards,...model.cards];
 
 //************************
 // *******Controller
@@ -177,8 +170,9 @@ let cardListView = {
 		/*
 		 * set up the event listener for a card. If a card is clicked:
 		 */
-		this.cardDeck.addEventListener('click',
+		this.cardList.addEventListener('click',
 			function(event) {
+				if(event.target === this) return;
 				/*
 				 * Check if the target is fa-icon then take the parent
 				 * card as current card.
@@ -186,6 +180,9 @@ let cardListView = {
 				const curr_card = (event.target.classList[0] === 'card')
 									? event.target
 									: event.target.parentElement;
+
+				if(curr_card.classList[0] !== 'card') return;
+
 				if(curr_card.classList[1] === 'match'){
 				/*
 				 * Check if user clicks the matched card, if so
