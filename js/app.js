@@ -78,14 +78,13 @@ let deckHeaderView = {
     init: function(){
         this.move = document.getElementsByClassName('moves')[0];
         this.starList = document.getElementsByClassName('stars')[0];
-		this.restartBtn = document.getElementsByClassName('restart')[0];
+				this.restartBtn = document.getElementsByClassName('restart')[0];
         this.render();
     },
 
     render: function(){
         this.starList.textContent='';
         this.move.textContent='';
-        const stars = controller.getAllCards();
         const fragment = document.createDocumentFragment();
         for(let i=1 ; i<=model.starCounter ;i++)
         {
@@ -203,7 +202,7 @@ let cardListView = {
 				 */
 					event.preventDefault();
 					return;
-				}else if(curr_card.classList[1] === 'mismatch'){
+				}else if(document.querySelector('.mismatch')){
 				/*
 				 * Remove the mismatch class to avoid conflict with rotate
 				 * animation when users flips the card by clicking on one of
