@@ -3,11 +3,11 @@ The Memory Game Project is all about demonstrating your mastery of HTML, CSS, an
 
 ## Table of Contents
 
-* [How The Game Works](#how+the+game+works)
-* [Working GitHub page](#instructions)
-* [Learn About Folder Structure](#learn+about+folder+structure)
+* [How The Game Works](#how-the-game-works)
+* [Working GitHub page](#working-github-page)
+* [Learn About Folder Structure](#learn-about-folder-structure)
 * [Prerequisites](#prerequisites)
-* [How to launch the app locally](#how+to+launch+the+app+locally)
+* [How to launch the app locally](#how-to-launch-the-app-locally)
 * [Authors](#authors)
 * [Acknowledgments](#acknowledgments)
 
@@ -28,6 +28,9 @@ Game Displays below stats
 - Time: Displays the time elapsed.
 - Restart: User can restart game any time.
 - Congratulations Popup: When a user wins the game, a modal appears to congratulate the player and ask if they want to play again. It also tell the user how much time it took to win the game, and what the star rating was.
+
+## Working GitHub page
+https://gauravsinghaec.github.io/FEND_memory_game/
 
 ## Learn About Folder Structure
 ```
