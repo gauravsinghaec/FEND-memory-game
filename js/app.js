@@ -13,18 +13,18 @@ let t = 0;
  */
 //************************
 let model = {
-    moveCounter: 0,
-    timeCounter: 0,
-    starCounter: 3,
-    cards : [
-    	'fa fa-diamond'
-        ,'fa fa-paper-plane-o'
-        ,'fa fa-anchor'
-        ,'fa fa-bolt'
-        ,'fa fa-cube'
-        ,'fa fa-leaf'
-        ,'fa fa-bicycle'
-        ,'fa fa-bomb'    ]
+  moveCounter: 0,
+  timeCounter: 0,
+  starCounter: 3,
+  cards : [
+  	'fa fa-diamond'
+    ,'fa fa-paper-plane-o'
+    ,'fa fa-anchor'
+    ,'fa fa-bolt'
+    ,'fa fa-cube'
+    ,'fa fa-leaf'
+    ,'fa fa-bicycle'
+    ,'fa fa-bomb'    ]
 };
 
 model.cards = [...model.cards,...model.cards];
@@ -33,60 +33,60 @@ model.cards = [...model.cards,...model.cards];
 // *******Controller
 //************************
 const controller = {
-    // Get the shuffled list od cards
-    getAllCards: function(){
-        return shuffle(model.cards);
-    },
+  // Get the shuffled list od cards
+  getAllCards: function(){
+	  return shuffle(model.cards);
+  },
 
-    // Get the user's start rating
-    getStar: function(){
-        return model.starCounter;
-    },
+  // Get the user's start rating
+  getStar: function(){
+    return model.starCounter;
+  },
 
-    // Get the user's moves data
-    getMove: function(){
-        return model.moveCounter;
-    },
+  // Get the user's moves data
+  getMove: function(){
+    return model.moveCounter;
+  },
 
-    // Update user's moves data
-    updateMove: function(){
-        model.moveCounter++;
-        deckHeaderView.render();
-    },
+  // Update user's moves data
+  updateMove: function(){
+    model.moveCounter++;
+    deckHeaderView.render();
+  },
 
-    // Update user's star data
-    updateStar: function(){
-    	if(model.moveCounter >10 && model.moveCounter <=16){
-    		model.starCounter = 2;
-    	}else if(model.moveCounter >16){
-    		model.starCounter = 1;
-    	}
-        deckHeaderView.render();
-    },
+  // Update user's star data
+  updateStar: function(){
+  	if(model.moveCounter >10 && model.moveCounter <=16){
+  		model.starCounter = 2;
+  	}else if(model.moveCounter >16){
+  		model.starCounter = 1;
+  	}
+    deckHeaderView.render();
+  },
 
-		// Reset the timer
-		updateTimer: function() {
-      model.timeCounter++;
-      deckHeaderView.render();
-		},
+	// Reset the timer
+	updateTimer: function() {
+    model.timeCounter++;
+    deckHeaderView.render();
+	},
 
-		// Reset the counters
-		resetCounters: function() {
-			model.timeCounter = 0;
-			model.moveCounter = 0;
-			model.starCounter = 3;
-		},
+	// Reset the counters
+	resetCounters: function() {
+		model.timeCounter = 0;
+		model.moveCounter = 0;
+		model.starCounter = 3;
+	},
 
-		// Reset the timer
-		getTimer: function() {
-			return model.timeCounter;
-		},
+	// Reset the timer
+	getTimer: function() {
+		return model.timeCounter;
+	},
 
-    init: function(){
-    	this.resetCounters();
-      deckHeaderView.init();
-      cardListView.init();
-    },
+  init: function(){
+  	this.resetCounters();
+    deckHeaderView.init();
+    cardListView.init();
+  },
 
 };
 /**********************
@@ -95,41 +95,40 @@ const controller = {
 
 // This view keeps track of move counter and star rating update
 let deckHeaderView = {
-    init: function(){
-        this.move = document.getElementsByClassName('moves')[0];
-        this.starList = document.getElementsByClassName('stars')[0];
-				this.gameTime = document.getElementsByClassName('time')[0];
-				this.restartBtn = document.getElementsByClassName('restart')[0];
-        this.render();
-    },
+  init: function(){
+    this.move = document.getElementsByClassName('moves')[0];
+    this.starList = document.getElementsByClassName('stars')[0];
+		this.gameTime = document.getElementsByClassName('time')[0];
+		this.restartBtn = document.getElementsByClassName('restart')[0];
+    this.render();
+  },
 
-    render: function(){
-        this.starList.textContent='';
-        this.move.textContent='';
-        this.gameTime.textContent='';
-				this.restartBtn.removeEventListener('click',restartGame);
-        const fragment = document.createDocumentFragment();
-        for(let i=1 ; i<=model.starCounter ;i++)
-        {
-            let elem    = document.createElement('li');
-            let starIcon = document.createElement('i');
-            starIcon.className = 'fa fa-star';
-            elem.appendChild(starIcon);
-            fragment.appendChild(elem);
-        }
+  render: function(){
+    this.starList.textContent='';
+    this.move.textContent='';
+    this.gameTime.textContent='';
+		this.restartBtn.removeEventListener('click',restartGame);
+    const fragment = document.createDocumentFragment();
+    for(let i=1 ; i<=model.starCounter ;i++)
+    {
+      let elem    = document.createElement('li');
+      let starIcon = document.createElement('i');
+      starIcon.className = 'fa fa-star';
+      elem.appendChild(starIcon);
+      fragment.appendChild(elem);
+    }
 
-    //reflow and repaint here -- once!
+	  //reflow and repaint here -- once!
 		this.starList.appendChild(fragment);
 		this.move.textContent = controller.getMove();
 		this.gameTime.textContent = controller.getTimer();
-
 		this.restartBtn.addEventListener('click',restartGame,false);
-    }
+  }
 };
 
 // This view display a message with the final score when all cards match
 let modalPopupView = {
-    init: function(){
+  init: function(){
 		this.modal = document.getElementById('winning-modal');
 		this.modalContent = document.querySelector('.modal-content');
 		// Get the <span> element that closes the modal
@@ -140,9 +139,9 @@ let modalPopupView = {
 		this.gameTime = document.getElementsByClassName('time')[0];
 		this.replayBtn = document.getElementById('replay');
     this.render();
-    },
+  },
 
-    render: function(){
+  render: function(){
 		this.replayBtn.removeEventListener('click',restartGame);
 		this.modalSpan.removeEventListener('click',modalClickHandler);
 		this.modalContent.removeEventListener('click',modalContentClickHandler);
@@ -160,7 +159,7 @@ let modalPopupView = {
 		 */
 		window.addEventListener('click',modalClickHandler,false);
 		this.modalContent.addEventListener('click',modalContentClickHandler);
-    }
+  }
 };
 
 /**
@@ -170,33 +169,33 @@ let modalPopupView = {
  *   - add each card's HTML to the page
  */
 let cardListView = {
-    init: function(){
-        this.cardList = document.getElementsByClassName('deck')[0];
-        this.cardDeck = document.getElementById('deck-board');
-        this.render();
-    },
+  init: function(){
+    this.cardList = document.getElementsByClassName('deck')[0];
+    this.cardDeck = document.getElementById('deck-board');
+    this.render();
+  },
 
-    render: function(){
-        this.cardList.textContent='';
-        const cards = controller.getAllCards();
-        const fragment = document.createDocumentFragment();
-				this.cardList.removeEventListener('click',restartGame);
-        for(const card of cards)
-        {
-            let elem    = document.createElement('li');
-            let cardIcon = document.createElement('i');
-            elem.className = 'card';
-            cardIcon.className = card;
-            elem.appendChild(cardIcon);
-            fragment.appendChild(elem);
-        }
+  render: function(){
+    this.cardList.textContent='';
+    const cards = controller.getAllCards();
+    const fragment = document.createDocumentFragment();
+		this.cardList.removeEventListener('click',restartGame);
+    for(const card of cards)
+    {
+      let elem    = document.createElement('li');
+      let cardIcon = document.createElement('i');
+      elem.className = 'card';
+      cardIcon.className = card;
+      elem.appendChild(cardIcon);
+      fragment.appendChild(elem);
+    }
 
-    // reflow and repaint here -- once!
+	  // reflow and repaint here -- once!
 		this.cardList.appendChild(fragment);
 
 		// set up the event listener for a card. If a card is clicked:
 		this.cardList.addEventListener('click',handleCardClick);
-    }
+  }
 };
 
 
@@ -212,15 +211,15 @@ let cardListView = {
  * 		array (data type: array): shuffled list of cards
  */
 function shuffle(array) {
-    let currentIndex = array.length, temporaryValue, randomIndex;
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-    return array;
+  let currentIndex = array.length, temporaryValue, randomIndex;
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+  return array;
 }
 
 /**
@@ -247,7 +246,7 @@ function restartGame() {
  * @returns:
  * 		None
  */
- function checkGameStatus() {
+function checkGameStatus() {
 	if (matchedCards.length == totalCards.length){
 		window.clearInterval(t);
 		modalPopupView.init();
@@ -281,6 +280,7 @@ function matchCards(...cards) {
 	checkGameStatus();
 }
 
+// Event handler for card click
 function handleCardClick(event) {
 	event.stopPropagation();
 	if(event.target === this) return;
@@ -289,8 +289,7 @@ function handleCardClick(event) {
 	 * card as current card.
 	 */
 	const curr_card = (event.target.classList[0] === 'card')
-						? event.target
-						: event.target.parentElement;
+		? event.target: event.target.parentElement;
 
 	if(curr_card.classList[0] !== 'card') return;
 	/**
@@ -323,8 +322,8 @@ function handleCardClick(event) {
 		}
 	}
 
-	// display the card's symbol ( using global unhide function)
-	unhideCard(curr_card);
+// display the card's symbol ( using global unhide function)
+unhideCard(curr_card);
 	if(openCardList.length === 0){
 		/**
 		 * if the *list* of 'open' cards is empty,
@@ -342,7 +341,7 @@ function handleCardClick(event) {
 			return;
 		}
 
-		//update moves and start on page
+		// update moves and start on page
 		controller.updateMove();
 		controller.updateStar();
 		if(prev_card && (prev_card.firstElementChild.classList[1]
@@ -378,11 +377,19 @@ function handleCardClick(event) {
 		}
 	}
 }
+
+/**
+ * Event handler to stop event regitered on window to close
+ * modal popup when clicked outside modal window
+ */
 function modalContentClickHandler(e) {
-			e.stopPropagation();
+	e.stopPropagation();
 }
+
+// Event handler to close modal popup
 function modalClickHandler(e) {
   modal.style.display = 'none';
 }
+
 // Load the game page views once DOM is loaded
 window.addEventListener('DOMContentLoaded',controller.init(),false);
