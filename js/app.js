@@ -4,7 +4,7 @@ const openCardList = [];
 const totalCards = document.getElementsByClassName('card');
 const matchedCards = document.getElementsByClassName('card match');
 const modal = document.querySelector('#winning-modal');
-const players = loadPlayers();
+let players = [];
 let t = 0;
 
 //************************
@@ -269,8 +269,9 @@ let cardListView = {
 			let userConsent = true;
 			userConsent = t ? confirm("Your game will be reset. Do you want to continue?"): userConsent ;
 			if(userConsent){
-				restartGame();
+				players = loadPlayers()
 				leaderBoardView.init();
+				restartGame();
 			}
 		};
 		this.leaderBoard.addEventListener('click',this.launchLeaderBoard);
