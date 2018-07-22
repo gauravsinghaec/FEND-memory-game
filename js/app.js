@@ -163,7 +163,7 @@ let modalPopupView = {
 		window.addEventListener('click',modalClickHandler,false);
 		this.modalContent.addEventListener('click',modalContentClickHandler,false);
 
-		this.launchSaveScoreModal = function(e){
+		this.launchSaveScoreModal = (e) => {
 			e.stopPropagation();
 			saveScoreView.init();
 		};
@@ -187,7 +187,7 @@ let saveScoreView = {
 		this.saveScoreModal.style.display = 'block';
 
 		// When the user clicks on <span> (x), close the modal
-		this.closePopup = function(e){
+		this.closePopup = (e) => {
 			e.stopPropagation();
   		document.querySelector('#save-score-modal').style.display = 'none';
 		}
@@ -219,7 +219,7 @@ let leaderBoardView = {
 
 	  //reflow and repaint here -- once!
 		this.playersList.appendChild(fragment);
-		this.closePopup = function(e){
+		this.closePopup = (e) => {
 			e.stopPropagation();
   		document.querySelector('#score-modal').style.display = 'none';
 		}
@@ -264,7 +264,7 @@ let cardListView = {
 		// set up the event listener for a card. If a card is clicked:
 		this.cardList.addEventListener('click',handleCardClick);
 
-		this.launchLeaderBoard = function(e){
+		this.launchLeaderBoard = (e) => {
 			e.stopPropagation();
 			let userConsent = true;
 			userConsent = t ? confirm("Your game will be reset. Do you want to continue?"): userConsent ;
