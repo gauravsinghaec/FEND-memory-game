@@ -4,6 +4,7 @@ const openCardList = [];
 const totalCards = document.getElementsByClassName('card');
 const matchedCards = document.getElementsByClassName('card match');
 const modal = document.querySelector('#winning-modal');
+const players = loadPlayers();
 let t = 0;
 
 //************************
@@ -138,6 +139,7 @@ let modalPopupView = {
 		this.modalTime = document.getElementById('playerTime');
 		this.gameTime = document.getElementsByClassName('time')[0];
 		this.replayBtn = document.getElementById('replay');
+		this.saveBtn = document.querySelector('#save-score');
     this.render();
   },
 
@@ -145,6 +147,7 @@ let modalPopupView = {
 		this.replayBtn.removeEventListener('click',restartGame);
 		this.modalSpan.removeEventListener('click',modalClickHandler);
 		this.modalContent.removeEventListener('click',modalContentClickHandler);
+		this.saveBtn.removeEventListener('click',this.launchSaveScoreModal);
 		this.modalStar.textContent = controller.getStar();
 		this.modalMoves.textContent = controller.getMove();
 		this.modal.style.display = 'block';
@@ -158,7 +161,69 @@ let modalPopupView = {
 		 * See the third parameter passed as true
 		 */
 		window.addEventListener('click',modalClickHandler,false);
-		this.modalContent.addEventListener('click',modalContentClickHandler);
+		this.modalContent.addEventListener('click',modalContentClickHandler,false);
+
+		this.launchSaveScoreModal = function(e){
+			e.stopPropagation();
+			saveScoreView.init();
+		};
+		this.saveBtn.addEventListener('click',this.launchSaveScoreModal,false);
+  }
+};
+
+// This view display a message with the final score when all cards match
+let saveScoreView = {
+  init: function(){
+    this.saveScoreModal = document.querySelector('#save-score-modal');
+		this.modalSpan = document.querySelector('#save-score-modal .close');
+		this.cancelBtn = document.querySelector('#cancel');
+		this.saveBtn = document.querySelector('#save');
+    this.render();
+  },
+
+  render: function(){
+		this.modalSpan.removeEventListener('click',this.closePopup);
+		this.saveBtn.removeEventListener('click',saveGame);
+		this.saveScoreModal.style.display = 'block';
+
+		// When the user clicks on <span> (x), close the modal
+		this.closePopup = function(e){
+			e.stopPropagation();
+  		document.querySelector('#save-score-modal').style.display = 'none';
+		}
+		this.modalSpan.addEventListener('click',this.closePopup,false);
+		this.saveBtn.addEventListener('click',saveGame,false);
+		this.saveScoreModal.addEventListener('click',modalContentClickHandler,false);
+  }
+};
+
+// This view shows the score board with all players
+let leaderBoardView = {
+  init: function(){
+    this.leaderBoardModal = document.querySelector('#score-modal');
+    this.playersList = document.querySelector('#score-modal form tbody');
+		this.modalSpan = document.querySelector('#score-modal .close');
+    this.render();
+  },
+
+  render: function(){
+  	this.playersList.textContent = '';
+  	this.leaderBoardModal.style.display = 'block';
+		this.modalSpan.removeEventListener('click',this.closePopup);
+    const fragment = document.createDocumentFragment();
+    if(players){
+	    for(const player of players) {
+	      let newPlayer = createPlayer(fragment,player);
+	    }
+    }
+
+	  //reflow and repaint here -- once!
+		this.playersList.appendChild(fragment);
+		this.closePopup = function(e){
+			e.stopPropagation();
+  		document.querySelector('#score-modal').style.display = 'none';
+		}
+		this.modalSpan.addEventListener('click',this.closePopup);
   }
 };
 
@@ -170,6 +235,7 @@ let modalPopupView = {
  */
 let cardListView = {
   init: function(){
+  	this.leaderBoard = document.querySelector('#leader-board');
     this.cardList = document.getElementsByClassName('deck')[0];
     this.cardDeck = document.getElementById('deck-board');
     this.render();
@@ -180,6 +246,8 @@ let cardListView = {
     const cards = controller.getAllCards();
     const fragment = document.createDocumentFragment();
 		this.cardList.removeEventListener('click',restartGame);
+		this.cardList.removeEventListener('click',handleCardClick);
+		this.leaderBoard.removeEventListener('click',this.launchLeaderBoard);
     for(const card of cards)
     {
       let elem    = document.createElement('li');
@@ -195,6 +263,17 @@ let cardListView = {
 
 		// set up the event listener for a card. If a card is clicked:
 		this.cardList.addEventListener('click',handleCardClick);
+
+		this.launchLeaderBoard = function(e){
+			e.stopPropagation();
+			let userConsent = true;
+			userConsent = t ? confirm("Your game will be reset. Do you want to continue?"): userConsent ;
+			if(userConsent){
+				restartGame();
+				leaderBoardView.init();
+			}
+		};
+		this.leaderBoard.addEventListener('click',this.launchLeaderBoard);
   }
 };
 
@@ -390,6 +469,108 @@ function modalContentClickHandler(e) {
 function modalClickHandler(e) {
   modal.style.display = 'none';
 }
+
+/**
+ * This build up the table rows for each player to be
+ * shown on the score board
+ * @param:
+ * 		fragment (data type: DOM Node): temporary DON Node to be inserted
+ * 		player (data type: Object): player object with name and score
+ * @returns:
+ * 		fragment (data type: DOM Node)
+ */
+function createPlayer(fragment,player){
+	let newRow = document.createElement('tr');
+  let nameCol    = document.createElement('td');
+  let nameInput = document.createElement('input');
+  nameInput.type = "text";
+  nameInput.name = "name";
+  nameInput.disabled = true;
+  nameInput.setAttribute('value',player.name);
+  nameCol.appendChild(nameInput);
+  newRow.appendChild(nameCol);
+
+  let moveCol    = document.createElement('td');
+  let moveInput = document.createElement('input');
+  moveInput.type = "text";
+  moveInput.name = "move";
+  moveInput.disabled = true;
+  moveInput.setAttribute('value',player.score.move);
+  moveCol.appendChild(moveInput);
+  newRow.appendChild(moveCol);
+
+  let timeCol    = document.createElement('td');
+  let timeInput = document.createElement('input');
+  timeInput.type = "text";
+  timeInput.name = "time";
+  timeInput.disabled = true;
+  timeInput.setAttribute('value',player.score.time);
+  timeCol.appendChild(timeInput);
+  newRow.appendChild(timeCol);
+
+  let starCol    = document.createElement('td');
+  let starInput = document.createElement('input');
+  starInput.type = "text";
+  starInput.name = "star";
+  starInput.disabled = true;
+  starInput.setAttribute('value',player.score.star);
+  starCol.appendChild(starInput);
+  newRow.appendChild(starCol);
+
+  fragment.appendChild(newRow);
+
+  return fragment;
+}
+
+/**
+ * Save the player object into browser's localStorage
+ * @param:
+ * 		None
+ * @returns:
+ * 		None
+ */
+function saveGame(e){
+	e.stopPropagation();
+	let regex = /[a-zA-Z]{3}/;
+	let playerName = document.querySelector('#save-score-modal form input').value;
+	let validName = regex.test(playerName)? true : false;
+	if(validName) {
+		let state = {'name': playerName,'score':{'move':controller.getMove()
+							,'time':controller.getTimer()
+							,'star':controller.getStar()}};
+		players.push(state);
+		localStorage.setItem("state",JSON.stringify(players));
+		alert( "Score saved for " +playerName+ " successfully.");
+		document.querySelector('#save-score-modal').style.display = 'none';
+		window.setTimeout(function(){
+			restartGame();
+		},500)
+	}else {
+		alert("Invalid name " +playerName +"\n Must be alphabatic with minimum three characters");
+	}
+};
+
+/**
+ * Fetch the players from browser's localStorage
+ * @param:
+ * 		None
+ * @returns:
+ * 		(data type: array) Array of player object
+ */
+function loadPlayers(){
+	let players;
+	players = JSON.parse(localStorage.getItem('state'));
+
+	// Sort the players as per the moves taken by them to finish the game
+	if (players) {
+		players.sort(function(a,b){
+			return a.score.move - b.score.move;
+		});
+	}else {
+		players = [];
+	}
+	return players;
+};
 
 // Load the game page views once DOM is loaded
 window.addEventListener('DOMContentLoaded',controller.init(),false);

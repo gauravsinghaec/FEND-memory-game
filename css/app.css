@@ -37,7 +37,39 @@ body {
 
 h1 {
   font-family: 'Open Sans', sans-serif;
-  font-weight: 300; }
+  font-weight: 300;
+  letter-spacing: 2px;
+  margin-bottom: 0px; }
+
+/*
+ * Styles for the leader board
+ */
+#leader-board {
+  letter-spacing: 2px;
+  padding: 0.6em 1.2em;
+  text-align: center;
+  margin: 0px; }
+
+#leader-board button {
+  font-weight: bold;
+  letter-spacing: 2px;
+  padding: 0.6em 1.2em;
+  text-transform: uppercase;
+  background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%); }
+
+#score-modal form table {
+  margin: 0 auto 0 auto; }
+
+#score-modal form table thead td {
+  text-align: left; }
+
+#score-modal form table tbody td input {
+  border: none;
+  background: transparent;
+  width: 2em; }
+
+#score-modal form table tbody td input[name='name'] {
+  width: 8em; }
 
 /*
  * Styles for the deck of cards
@@ -260,17 +292,32 @@ h1 {
   width: 60%;
   border-radius: 0.5em; }
 
-.modal-content .trophy {
+.modal button {
+  letter-spacing: 2px;
+  padding: 0.6em 1.2em;
+  border-radius: 0.5em;
+  margin-top: 1.2em;
+  background: #02ccba; }
+
+#winning-modal .modal-content .trophy {
   font-size: 33px; }
 
-.modal-content p {
+#winning-modal .modal-content p {
   font-weight: lighter; }
 
-.modal-content #replay {
-  font-size: 1.0em;
-  padding: 0.8em 1.2em;
-  border-radius: 0.5em;
+#winning-modal .modal-content #replay {
   background: #02ccba; }
+
+#save-score-modal .modal {
+  z-index: 99999; }
+
+#save-score-modal .modal-content {
+  margin: 25% auto; }
+
+#save-score-modal .modal-content input {
+  padding: 0.6em 1.2em;
+  margin-top: 2em;
+  text-align: center; }
 
 @media screen and (max-width: 50em) {
   .modal-content {

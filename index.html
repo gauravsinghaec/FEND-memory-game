@@ -14,7 +14,8 @@
 
     <div class="container">
         <header>
-            <h1>Matching Game</h1>
+            <h1 class="game-title">Matching Game</h1>
+            <h5 id="leader-board"><button>Score Board</button></h5>
         </header>
 
         <section class="score-panel">
@@ -50,7 +51,43 @@
                     <p>Bazzingaaaaaa!</p>
                 </div>
                 <div class="replayGame">
-                    <button id="replay">REPLAY</button>
+                    <button id="replay">REPLAY</button> <button id="save-score">SAVE SCORE</button>
+                </div>
+            </div>
+        </div>
+        <!-- The Modal -->
+        <div id="score-modal" class="modal hidden">
+        <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h1>Score Board</h1>
+                <form>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Name</td>
+                                <td>Moves</td>
+                                <td>Time</td>
+                                <td>Star</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <!-- The Modal -->
+        <div id="save-score-modal" class="modal hidden">
+        <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <form>
+                    <input type="" name="name" placeholder="Enter Name">
+                </form>
+                <div class="saveGame">
+                    <button id="save">SAVE</button>
                 </div>
             </div>
         </div>
