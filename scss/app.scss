@@ -45,7 +45,7 @@ h1 {
     margin : 0px;
 }
 
-#leader-board button{
+#leader-board button, .score-modal-title {
     font-weight: bold;
     letter-spacing: 2px;
     padding: 0.6em 1.2em;
@@ -308,7 +308,31 @@ h1 {
     text-align: center;
 }
 
-#save-score-modal .modal-content .saveGame button {
+#score-modal .score-modal-title {
+    margin: 2em 0px 1em;
+    font-weight: bold;
+    letter-spacing: 2px;
+    padding: 0.6em 1em;
+    text-transform: uppercase;
+    background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+}
+
+#score-modal form table {
+    margin: 0 auto 0 auto;
+}
+
+#score-modal form table thead td {
+    text-align: left;
+}
+
+#score-modal form table tbody td input {
+    border: none;
+    background: transparent;
+    width: 2em;
+}
+
+#score-modal form table tbody td input[name='name'] {
+    width: 8em;
 }
 
 @media screen and (max-width: 50em){
@@ -321,7 +345,7 @@ h1 {
 .close {
     color: #aaa;
     float: right;
-    font-size: 28px;
+    font-size: 2rem;
     font-weight: bold;
 }
 
