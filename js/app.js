@@ -7,6 +7,7 @@ const modal = document.querySelector('#winning-modal');
 const infoModal = document.querySelector('#info-modal');
 let players = [];
 let t = 0;
+let gameStart = false;
 
 //************************
 /** *******Model
@@ -158,6 +159,16 @@ let controlHeaderView = {
 			e.stopPropagation();
 			this.playPauseBtn.firstElementChild.classList.toggle('hidden');
 			this.playPauseBtn.lastElementChild.classList.toggle('hidden');
+			switch (e.target.classList[1]) {
+				case "fa-play-circle":
+					t ? gameTimer('continue'): gameTimer('start');
+					break;
+				case "fa-pause-circle":
+					gameTimer('pause');
+					break;
+				default:
+					break;
+			}
 		}
 
 		// When the user clicks on volume icon, trigger this event
@@ -365,7 +376,9 @@ function shuffle(array) {
  */
 function restartGame() {
   modal.style.display = 'none';
-	if(t) { window.clearInterval(t); t=0;};
+
+	if(t) gameTimer('stop');
+
 	openCardList.length = 0;
 	window.removeEventListener('click',modalClickHandler,false);
 	controller.init();
@@ -432,9 +445,7 @@ function handleCardClick(event) {
 	 * start the timer only when user clicks on card first time
 	 */
 	if(!t){
-		t = window.setInterval(function() {
-			controller.updateTimer();
-		}, 1000);
+		gameTimer('start');
 	}
 	if(curr_card.classList[1] === 'match'){
 		/**
@@ -626,6 +637,57 @@ function loadPlayers(){
 	}
 	return players;
 };
+
+/**
+ * Set/update the timer based on input string
+ * @param:
+ * 		status (data type: String): String literals to start/stop/pause/continue
+ * @returns:
+ * 		None
+ */
+function gameTimer (status) {
+  switch (status) {
+    case "start":
+      if (gameStart === false) {
+        t = setInterval(callTimer, 1000);
+        gameStart = true;
+      }
+    break;
+
+    case "pause":
+      if (gameStart === true && t !== null) {
+        clearInterval(t);
+        gameStart = false;
+      }
+    break;
+
+    case "continue":
+      if (gameStart === false && t !== undefined && t !== null) {
+        t = setInterval(callTimer, 1000);
+        gameStart = true;
+      }
+    break;
+
+    case "stop":
+      if (t !== null) {
+        clearInterval(t);
+        t = null;
+        gameStart = false;
+      }
+    break;
+  }
+}
+
+/**
+ * Invoke controller method to update timer
+ * @param:
+ * 		None
+ * @returns:
+ * 		None
+ */
+function callTimer(){
+	controller.updateTimer();
+}
 
 // Load the game page views once DOM is loaded
 window.addEventListener('DOMContentLoaded',controller.init(),false);
