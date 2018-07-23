@@ -263,6 +263,61 @@ svg {
     display: none;
 }
 
+/*
+ * Styles for the Control Panel
+ */
+.control-panel {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    background: white;
+    width: 40vw;
+    margin-bottom: 10px;
+    padding: 0 10px;
+    border-radius: 8px;
+    z-index: 1 ;
+    font-size: 2rem;
+}
+
+.control-panel .pause-play{
+    cursor: pointer;
+    width: calc((100% -2rem)/ 4);
+    text-align: left;
+}
+
+.control-panel .music {
+    cursor: pointer;
+    width: calc((100% -2rem)/ 4);
+    text-align: center;
+}
+
+.control-panel .music {
+    cursor: pointer;
+    width: calc((100% -2rem)/ 4);
+    text-align: center;
+}
+
+.control-panel .help {
+    float: right;
+    cursor: pointer;
+    width: calc((100% -2rem)/ 4);
+    text-align: right;
+}
+
+@media screen and (min-width: 25em) and (max-width: 50em){
+    .control-panel {
+        text-align: left;
+        width: 55vw;
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (max-width: 25em) {
+    .control-panel {
+        width: 65vw;
+    }
+}
+
 /* The Modal (background) */
 .modal {
     position: fixed; /* Stay in place */
