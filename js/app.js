@@ -8,6 +8,23 @@ const infoModal = document.querySelector('#info-modal');
 let players = [];
 let t = 0;
 let gameStart = false;
+let mySound;
+const sounds={
+		start: "sounds/background96bps.mp3"
+		, match: "sounds/match.wav"
+		, mismatch: "sounds/mismatch.wav"
+		, warning:"sounds/alert.wav"
+		, finish:"sounds/finish.wav"
+		, confirm:"sounds/confirm.wav"
+};
+
+let audioObj = {
+  init: function() {
+    Object.keys(sounds).forEach(function(key) {
+    	audioObj[key] = new Sound(sounds[key]);
+    });
+  }
+};
 
 //************************
 /** *******Model
@@ -90,6 +107,7 @@ const controller = {
     deckHeaderView.init();
     controlHeaderView.init();
     cardListView.init();
+    audioObj.init();
   },
 
 };
@@ -157,8 +175,7 @@ let controlHeaderView = {
 		// When the user clicks on play/pause icon, trigger this event
 		this.gameTimer = (e) => {
 			e.stopPropagation();
-			this.playPauseBtn.firstElementChild.classList.toggle('hidden');
-			this.playPauseBtn.lastElementChild.classList.toggle('hidden');
+			updatePlayPauseControl();
 			switch (e.target.classList[1]) {
 				case "fa-play-circle":
 					t ? gameTimer('continue'): gameTimer('start');
@@ -176,6 +193,18 @@ let controlHeaderView = {
 			e.stopPropagation();
 			this.volumeBtn.firstElementChild.classList.toggle('hidden');
 			this.volumeBtn.lastElementChild.classList.toggle('hidden');
+			if(audioObj){
+				switch (e.target.classList[1]) {
+					case "fa-volume-up":
+						audioObj.start.stop();
+						break;
+					case "fa-volume-off":
+						audioObj.start.play();
+						break;
+					default:
+						break;
+				}
+			}
 		}
 
 		// When the user clicks on <span> (x), close the modal
@@ -332,9 +361,12 @@ let cardListView = {
 		this.launchLeaderBoard = (e) => {
 			e.stopPropagation();
 			let userConsent = true;
-			userConsent = t ? confirm("Your game will be reset. Do you want to continue?"): userConsent ;
+			userConsent =
+			t ? (audioObj.confirm.play(),confirm("Your game will be reset. Do you want to continue?"))
+				: userConsent ;
 			if(userConsent){
 				players = loadPlayers()
+				audioObj.warning.play();
 				leaderBoardView.init();
 				restartGame();
 			}
@@ -396,6 +428,7 @@ function restartGame() {
 function checkGameStatus() {
 	if (matchedCards.length == totalCards.length){
 		window.clearInterval(t);
+		audioObj.finish.play();
 		modalPopupView.init();
 	}
 }
@@ -446,6 +479,7 @@ function handleCardClick(event) {
 	 */
 	if(!t){
 		gameTimer('start');
+		updatePlayPauseControl();
 	}
 	if(curr_card.classList[1] === 'match'){
 		/**
@@ -493,6 +527,7 @@ unhideCard(curr_card);
 			=== curr_card.firstElementChild.classList[1]))
 		{
 		  // if the cards do match,lock the cards in the open position
+			audioObj.match.play();
 			matchCards(curr_card,prev_card);
 		}else{
 		/**
@@ -513,6 +548,7 @@ unhideCard(curr_card);
 				for(const card of cards){
 					card.classList.add('mismatch');
 				}
+				audioObj.mismatch.play();
 				return function mismatchCards() {
 					for(const card of cards){
 						card.classList.remove('open', 'show');
@@ -651,6 +687,8 @@ function gameTimer (status) {
       if (gameStart === false) {
         t = setInterval(callTimer, 1000);
         gameStart = true;
+        if(document.querySelector('.fa-volume-up').classList.length === 3)
+		    	audioObj.start.play();
       }
     break;
 
@@ -685,9 +723,33 @@ function gameTimer (status) {
  * @returns:
  * 		None
  */
-function callTimer(){
+function callTimer() {
 	controller.updateTimer();
+}
+
+function updatePlayPauseControl() {
+	let playPauseBtn = document.querySelector('.pause-play')
+	playPauseBtn.firstElementChild.classList.toggle('hidden');
+	playPauseBtn.lastElementChild.classList.toggle('hidden');
+}
+
+class Sound {
+	constructor(src){
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+    this.play = function(){
+        this.sound.play();
+    }
+    this.stop = function(){
+        this.sound.pause();
+    }
+	}
 }
 
 // Load the game page views once DOM is loaded
 window.addEventListener('DOMContentLoaded',controller.init(),false);
+
