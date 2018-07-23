@@ -4,6 +4,7 @@ const openCardList = [];
 const totalCards = document.getElementsByClassName('card');
 const matchedCards = document.getElementsByClassName('card match');
 const modal = document.querySelector('#winning-modal');
+const infoModal = document.querySelector('#info-modal');
 let players = [];
 let t = 0;
 
@@ -86,6 +87,7 @@ const controller = {
   init: function(){
   	this.resetCounters();
     deckHeaderView.init();
+    controlHeaderView.init();
     cardListView.init();
   },
 
@@ -124,6 +126,56 @@ let deckHeaderView = {
 		this.move.textContent = controller.getMove();
 		this.gameTime.textContent = controller.getTimer();
 		this.restartBtn.addEventListener('click',restartGame,false);
+  }
+};
+
+// This view keeps track of move counter and star rating update
+let controlHeaderView = {
+  init: function(){
+    this.helpBtn = document.querySelector('.help');
+    this.volumeBtn = document.querySelector('.music');
+		this.playPauseBtn = document.querySelector('.pause-play');
+		this.restartBtn = document.querySelector('.restart');
+		this.modalSpan = document.querySelector('#info-modal .close');
+    this.render();
+  },
+
+  render: function(){
+		this.helpBtn.removeEventListener('click',this.launchInfo);
+		this.volumeBtn.removeEventListener('click',this.volumeSetup);
+		this.playPauseBtn.removeEventListener('click',this.gameTimer);
+		this.restartBtn.removeEventListener('click',restartGame);
+		this.modalSpan.removeEventListener('click',this.closePopup);
+
+		// When the user clicks on info icon from control options, trigger this event
+		this.launchInfo = (e) => {
+			e.stopPropagation();
+			infoModal.style.display = 'block';
+		}
+
+		// When the user clicks on play/pause icon, trigger this event
+		this.gameTimer = (e) => {
+			e.stopPropagation();
+			console.log("timer");
+		}
+
+		// When the user clicks on volume icon, trigger this event
+		this.volumeSetup = (e) => {
+			e.stopPropagation();
+			console.log("volume");
+		}
+
+		// When the user clicks on <span> (x), close the modal
+		this.closePopup = (e) => {
+			e.stopPropagation();
+  		document.querySelector('#info-modal').style.display = 'none';
+		}
+
+		this.modalSpan.addEventListener('click',this.closePopup);
+		this.helpBtn.addEventListener('click',this.launchInfo);
+		this.volumeBtn.addEventListener('click',this.volumeSetup);
+		this.playPauseBtn.addEventListener('click',this.gameTimer);
+		this.restartBtn.addEventListener('click',restartGame);
   }
 };
 
