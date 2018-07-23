@@ -156,13 +156,15 @@ let controlHeaderView = {
 		// When the user clicks on play/pause icon, trigger this event
 		this.gameTimer = (e) => {
 			e.stopPropagation();
-			console.log("timer");
+			this.playPauseBtn.firstElementChild.classList.toggle('hidden');
+			this.playPauseBtn.lastElementChild.classList.toggle('hidden');
 		}
 
 		// When the user clicks on volume icon, trigger this event
 		this.volumeSetup = (e) => {
 			e.stopPropagation();
-			console.log("volume");
+			this.volumeBtn.firstElementChild.classList.toggle('hidden');
+			this.volumeBtn.lastElementChild.classList.toggle('hidden');
 		}
 
 		// When the user clicks on <span> (x), close the modal
