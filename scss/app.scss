@@ -40,6 +40,12 @@ svg {
     top: 0;
 }
 
+.zi-1 {
+    position: relative;
+    z-index: 1 ;
+    cursor: pointer;
+}
+
 /*
  * Styles for the leader board
  */
@@ -51,6 +57,7 @@ svg {
 }
 
 #leader-board button, .score-modal-title {
+    border-radius: 0.5em;
     font-weight: bold;
     letter-spacing: 2px;
     padding: 0.6em 1.2em;
@@ -234,11 +241,6 @@ svg {
     cursor: pointer;
 }
 
-.score-panel, .link{
-    position: relative;
-    z-index: 1 ;
-    cursor: pointer;
-}
 @media screen and (min-width: 25em) and (max-width: 50em){
     .score-panel {
         text-align: left;
@@ -267,7 +269,6 @@ svg {
  * Styles for the Control Panel
  */
 .control-panel {
-    position: relative;
     display: flex;
     flex-wrap: wrap;
     background: white;
@@ -275,31 +276,26 @@ svg {
     margin-bottom: 10px;
     padding: 0 10px;
     border-radius: 8px;
-    z-index: 1 ;
     font-size: 2rem;
 }
 
 .control-panel .pause-play{
-    cursor: pointer;
     width: calc((100% -2rem)/ 4);
     text-align: left;
 }
 
 .control-panel .music {
-    cursor: pointer;
     width: calc((100% -2rem)/ 4);
     text-align: center;
 }
 
 .control-panel .music {
-    cursor: pointer;
     width: calc((100% -2rem)/ 4);
     text-align: center;
 }
 
 .control-panel .help {
     float: right;
-    cursor: pointer;
     width: calc((100% -2rem)/ 4);
     text-align: right;
 }
@@ -338,7 +334,7 @@ svg {
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 60%;
+    width: 50%;
     border-radius: 0.5em;
 }
 
@@ -403,9 +399,21 @@ svg {
     width: 8em;
 }
 
-@media screen and (max-width: 50em){
+#info-modal .info-modal-body {
+    margin: 10px auto;
+    width: 70%;
+}
+
+
+@media screen and (max-width: 25em){
     .modal-content {
-        width: 90%;
+        width: 95%;
+    }
+}
+
+@media screen and (min-width: 25em) and (max-width: 50em) {
+    .modal-content {
+        width: 76%;
     }
 }
 

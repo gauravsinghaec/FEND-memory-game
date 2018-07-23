@@ -14,10 +14,10 @@
     <div class="container">
         <header>
             <h1 class="game-title">Matching Game</h1>
-            <h5 id="leader-board"><button>Score Board</button></h5>
+            <h5 id="leader-board"><button class="zi-1">Score Board</button></h5>
         </header>
 
-        <section class="score-panel">
+        <section class="score-panel zi-1">
         	<ul class="stars">
             <!--Content will be created dynamically using app.js -->
         	</ul>
@@ -27,20 +27,20 @@
             <span class="time">0</span> Sec
 
             <div class="restart">
-        		<i class="fa fa-repeat"></i>
+        		<i class="fa fa-repeat zi-1"></i>
         	</div>
         </section>
         <section class="control-panel">
             <div class="pause-play">
-                <i class="fa fa-play-circle hidden"></i>
-                <i class="fa fa-pause-circle"></i>
+                <i class="fa fa-play-circle zi-1 hidden"></i>
+                <i class="fa fa-pause-circle zi-1"></i>
             </div>
-            <div class="music">
-                <i class="fa fa-volume-up"></i>
-                <i class="fa fa-volume-off hidden"></i>
+            <div class="music zi-1">
+                <i class="fa fa-volume-up zi-1"></i>
+                <i class="fa fa-volume-off zi-1 hidden"></i>
             </div>
             <div class="help">
-                <i class="fa fa-info-circle"></i>
+                <i class="fa fa-info-circle zi-1"></i>
             </div>
         </section>
         <section id="deck-board">
@@ -107,6 +107,20 @@
                 <div class="saveGame">
                     <button id="save">SAVE</button>
                 </div>
+            </div>
+        </div>
+        <!-- The Modal -->
+        <div id="info-modal" class="modal hidden">
+        <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">
+                    <i class="fa fa-times"></i>
+                </span>
+                <br>
+                <p class="info-modal-body"><em>Click on any card or  <i class="fa fa-play-circle"></i>  icon to start the game and click  <i class="fa fa-pause-circle"></i>  to pause the game. Restart/Replay the game by clicking on  <i class="fa fa-repeat"></i>  icon at any point of time during play. Click on  <i class="fa fa-volume-up"></i>  icon to mute and click  <i class="fa fa-volume-off"></i>  to unmute the game sound.</em>
+                <strong>Two flips counts to 1 move. The star rating decreases as player takes more move to finish the game.
+                1-10 move earns you to 3 start, 11-16 earns you 2 star and more than 16 moves means you ended up with 1 star.</strong>
+                </p>
             </div>
         </div>
     </div>
