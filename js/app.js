@@ -160,6 +160,10 @@ let controlHeaderView = {
   },
 
   render: function(){
+		this.playPauseBtn.firstElementChild.classList.remove('hidden');
+		this.playPauseBtn.lastElementChild.classList.add('hidden');
+		this.volumeBtn.firstElementChild.classList.remove('hidden');
+		this.volumeBtn.lastElementChild.classList.add('hidden');
 		this.helpBtn.removeEventListener('click',this.launchInfo);
 		this.volumeBtn.removeEventListener('click',this.volumeSetup);
 		this.playPauseBtn.removeEventListener('click',this.gameTimer);
