@@ -1,3 +1,5 @@
+(function(){
+'use strict';
 const openCardList = [];
 const totalCards = document.getElementsByClassName('card');
 const matchedCards = document.getElementsByClassName('card match');
@@ -752,4 +754,4 @@ class Sound {
 
 // Load the game page views once DOM is loaded
 window.addEventListener('DOMContentLoaded',controller.init(),false);
-
+})();
