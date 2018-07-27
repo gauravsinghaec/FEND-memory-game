@@ -8,7 +8,6 @@ const infoModal = document.querySelector('#info-modal');
 let players = [];
 let t = 0;
 let gameStart = false;
-let mySound;
 const sounds={
 		start: "sounds/background96bps.mp3"
 		, match: "sounds/match.wav"
@@ -311,7 +310,7 @@ let leaderBoardView = {
     const fragment = document.createDocumentFragment();
     if(players){
 	    for(const player of players) {
-	      let newPlayer = createPlayer(fragment,player);
+	      createPlayer(fragment,player);
 	    }
     }
 
@@ -625,7 +624,6 @@ function createPlayer(fragment,player){
 
   fragment.appendChild(newRow);
 
-  return fragment;
 }
 
 /**
