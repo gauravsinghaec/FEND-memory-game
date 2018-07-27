@@ -106,7 +106,11 @@ const controller = {
     deckHeaderView.init();
     controlHeaderView.init();
     cardListView.init();
-    if(audioObj && audioObj.start) audioObj.start.stop();
+    if(audioObj && audioObj.start) {
+			Object.keys(sounds).forEach(function(key) {
+				audioObj[key].load();
+			});
+		}
   },
 
 };
@@ -431,6 +435,7 @@ function restartGame() {
 function checkGameStatus() {
 	if (matchedCards.length == totalCards.length){
 		window.clearInterval(t);
+		audioObj.start.stop();
 		audioObj.finish.play();
 		modalPopupView.init();
 	}
@@ -748,6 +753,9 @@ class Sound {
     }
     this.stop = function(){
         this.sound.pause();
+    }
+    this.load = function(){
+        this.sound.load();
     }
 	}
 }
