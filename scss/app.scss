@@ -236,10 +236,6 @@ svg {
     margin: 0 0 0 25px ;
 }
 
-.score-panel .restart {
-    float: right;
-    cursor: pointer;
-}
 
 @media screen and (min-width: 25em) and (max-width: 50em){
     .score-panel {
@@ -271,7 +267,6 @@ svg {
 .control-panel {
     display: flex;
     flex-wrap: wrap;
-    background: white;
     width: 40vw;
     margin-bottom: 10px;
     padding: 0 10px;
@@ -289,15 +284,15 @@ svg {
     text-align: center;
 }
 
-.control-panel .music {
+.control-panel .restart {
     width: calc((100% -2rem)/ 4);
-    text-align: center;
+    text-align: right;
 }
 
 .control-panel .help {
     float: right;
     width: calc((100% -2rem)/ 4);
-    text-align: right;
+    text-align: center;
 }
 
 @media screen and (min-width: 25em) and (max-width: 50em){

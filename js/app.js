@@ -124,7 +124,6 @@ let deckHeaderView = {
     this.move = document.getElementsByClassName('moves')[0];
     this.starList = document.getElementsByClassName('stars')[0];
 		this.gameTime = document.getElementsByClassName('time')[0];
-		this.restartBtn = document.getElementsByClassName('restart')[0];
     this.render();
   },
 
@@ -132,7 +131,6 @@ let deckHeaderView = {
     this.starList.textContent='';
     this.move.textContent='';
     this.gameTime.textContent='';
-		this.restartBtn.removeEventListener('click',restartGame);
     const fragment = document.createDocumentFragment();
     for(let i=1 ; i<=model.starCounter ;i++)
     {
@@ -147,7 +145,6 @@ let deckHeaderView = {
 		this.starList.appendChild(fragment);
 		this.move.textContent = controller.getMove();
 		this.gameTime.textContent = controller.getTimer();
-		this.restartBtn.addEventListener('click',restartGame,false);
   }
 };
 
