@@ -1,13 +1,15 @@
-var gulp = require('gulp');
-var browserSync = require('browser-sync');
-var sass = require('gulp-sass');
-var autoprefixer = require('gulp-autoprefixer');
+/*eslint-env node */
+
+let gulp = require('gulp');
+let browserSync = require('browser-sync');
+let sass = require('gulp-sass');
+let autoprefixer = require('gulp-autoprefixer');
 
 // Compile sass into CSS & auto-inject into browser
 gulp.task('sass',function () {
     return gulp.src(['scss/app.scss'])
         .pipe(sass())
-        .pipe(autoprefixer( { browsers: ['last 2 versions']} ))
+        .pipe(autoprefixer( {browsers: ['last 2 versions']} ))
         .pipe(gulp.dest('css'))
         .pipe(browserSync.stream());
 });

@@ -1,5 +1,3 @@
-/*jshint esversion: 6 */
-
 const openCardList = [];
 const totalCards = document.getElementsByClassName('card');
 const matchedCards = document.getElementsByClassName('card match');
@@ -20,7 +18,7 @@ const sounds={
 let audioObj = {
   init: function() {
     Object.keys(sounds).forEach(function(key) {
-    	audioObj[key] = new Sound(sounds[key]);
+			audioObj[key] = new Sound(sounds[key]);
     });
   }
 };
@@ -36,7 +34,7 @@ let model = {
   timeCounter: 0,
   starCounter: 3,
   cards : [
-  	'fa fa-diamond'
+		'fa fa-diamond'
     ,'fa fa-paper-plane-o'
     ,'fa fa-anchor'
     ,'fa fa-bolt'
@@ -54,7 +52,7 @@ model.cards = [...model.cards,...model.cards];
 const controller = {
   // Get the shuffled list od cards
   getAllCards: function(){
-	  return shuffle(model.cards);
+		return shuffle(model.cards);
   },
 
   // Get the user's start rating
@@ -75,11 +73,11 @@ const controller = {
 
   // Update user's star data
   updateStar: function(){
-  	if(model.moveCounter >10 && model.moveCounter <=16){
-  		model.starCounter = 2;
-  	}else if(model.moveCounter >16){
-  		model.starCounter = 1;
-  	}
+		if(model.moveCounter >10 && model.moveCounter <=16){
+			model.starCounter = 2;
+		}else if(model.moveCounter >16){
+			model.starCounter = 1;
+		}
     deckHeaderView.render();
   },
 
@@ -102,7 +100,7 @@ const controller = {
 	},
 
   init: function(){
-  	this.resetCounters();
+		this.resetCounters();
     deckHeaderView.init();
     controlHeaderView.init();
     cardListView.init();
@@ -139,7 +137,7 @@ let deckHeaderView = {
       fragment.appendChild(elem);
     }
 
-	  //reflow and repaint here -- once!
+		//reflow and repaint here -- once!
 		this.starList.appendChild(fragment);
 		this.move.textContent = controller.getMove();
 		this.gameTime.textContent = controller.getTimer();
@@ -213,7 +211,7 @@ let controlHeaderView = {
 		// When the user clicks on <span> (x), close the modal
 		this.closePopup = (e) => {
 			e.stopPropagation();
-  		document.querySelector('#info-modal').style.display = 'none';
+			document.querySelector('#info-modal').style.display = 'none';
 		}
 
 		this.modalSpan.addEventListener('click',this.closePopup);
@@ -286,7 +284,7 @@ let saveScoreView = {
 		// When the user clicks on <span> (x), close the modal
 		this.closePopup = (e) => {
 			e.stopPropagation();
-  		document.querySelector('#save-score-modal').style.display = 'none';
+			document.querySelector('#save-score-modal').style.display = 'none';
 		}
 		this.modalSpan.addEventListener('click',this.closePopup,false);
 		this.saveBtn.addEventListener('click',saveGame,false);
@@ -304,21 +302,21 @@ let leaderBoardView = {
   },
 
   render: function(){
-  	this.playersList.textContent = '';
-  	this.leaderBoardModal.style.display = 'block';
+		this.playersList.textContent = '';
+		this.leaderBoardModal.style.display = 'block';
 		this.modalSpan.removeEventListener('click',this.closePopup);
     const fragment = document.createDocumentFragment();
     if(players){
-	    for(const player of players) {
-	      createPlayer(fragment,player);
-	    }
+			for(const player of players) {
+				createPlayer(fragment,player);
+			}
     }
 
-	  //reflow and repaint here -- once!
+		//reflow and repaint here -- once!
 		this.playersList.appendChild(fragment);
 		this.closePopup = (e) => {
 			e.stopPropagation();
-  		document.querySelector('#score-modal').style.display = 'none';
+			document.querySelector('#score-modal').style.display = 'none';
 		}
 		this.modalSpan.addEventListener('click',this.closePopup);
   }
@@ -332,7 +330,7 @@ let leaderBoardView = {
  */
 let cardListView = {
   init: function(){
-  	this.leaderBoard = document.querySelector('#leader-board');
+		this.leaderBoard = document.querySelector('#leader-board');
     this.cardList = document.getElementsByClassName('deck')[0];
     this.cardDeck = document.getElementById('deck-board');
     this.render();
@@ -355,7 +353,7 @@ let cardListView = {
       fragment.appendChild(elem);
     }
 
-	  // reflow and repaint here -- once!
+		// reflow and repaint here -- once!
 		this.cardList.appendChild(fragment);
 
 		// set up the event listener for a card. If a card is clicked:
@@ -529,7 +527,7 @@ unhideCard(curr_card);
 		if(prev_card && (prev_card.firstElementChild.classList[1]
 			=== curr_card.firstElementChild.classList[1]))
 		{
-		  // if the cards do match,lock the cards in the open position
+			// if the cards do match,lock the cards in the open position
 			audioObj.match.play();
 			matchCards(curr_card,prev_card);
 		}else{
@@ -571,7 +569,7 @@ function modalContentClickHandler(e) {
 }
 
 // Event handler to close modal popup
-function modalClickHandler(e) {
+function modalClickHandler() {
   modal.style.display = 'none';
 }
 
@@ -652,7 +650,7 @@ function saveGame(e){
 	}else {
 		alert("Invalid name " +playerName +"\n Must be alphabatic with minimum three characters");
 	}
-};
+}
 
 /**
  * Fetch the players from browser's localStorage
@@ -674,7 +672,7 @@ function loadPlayers(){
 		players = [];
 	}
 	return players;
-};
+}
 
 /**
  * Set/update the timer based on input string
@@ -690,7 +688,7 @@ function gameTimer (status) {
         t = setInterval(callTimer, 1000);
         gameStart = true;
         if(document.querySelector('.fa-volume-up').classList.length === 3)
-		    	audioObj.start.play();
+					audioObj.start.play();
       }
     break;
 
