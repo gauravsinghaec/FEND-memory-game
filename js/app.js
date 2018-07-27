@@ -106,7 +106,7 @@ const controller = {
     deckHeaderView.init();
     controlHeaderView.init();
     cardListView.init();
-    audioObj.init();
+    if(audioObj && audioObj.start) audioObj.start.stop();
   },
 
 };
@@ -752,6 +752,9 @@ class Sound {
 	}
 }
 
+
 // Load the game page views once DOM is loaded
 window.addEventListener('DOMContentLoaded',controller.init(),false);
+
+window.addEventListener('load',audioObj.init(),false);
 })();
