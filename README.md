@@ -8,6 +8,7 @@ The Memory Game Project is all about demonstrating your mastery of HTML, CSS, an
 * [Learn About Folder Structure](#learn-about-folder-structure)
 * [Prerequisites](#prerequisites)
 * [How to launch the app locally](#how-to-launch-the-app-locally)
+* [Resources](#resources)
 * [Authors](#authors)
 * [Acknowledgments](#acknowledgments)
 
@@ -76,6 +77,15 @@ Below command will run gulpfile.js and start the static project locally
 The application will be running at http://localhost:3000 URL
 ```
 
+## Resources
+- [Download audio from Freesound](https://freesound.org/browse/)
+- [Online audio cutter Audiotrimmer](https://audiotrimmer.com/online-mp3-converter/)
+- [HTML5 Audio/Video elements](https://www.w3schools.com/tags/ref_av_dom.asp)
+- [Collision Detection bubbles from d3js](https://bl.ocks.org/mbostock/3231298)
+- [Game Timer - Start, Pause, Stop](https://stackoverflow.com/questions/9769585/game-timer-start-pause-stop)
+- [Event Flow](https://www.w3.org/TR/DOM-Level-3-Events/#event-flow)
+- [Event Order](https://www.quirksmode.org/js/events_order.html#link4)
+- [How to create a multiple values for a single key using local storage?](https://stackoverflow.com/questions/24544861/how-to-create-a-multiple-values-for-a-single-key-using-local-storage)
 
 ## Authors
 * **Gaurav Singh**
