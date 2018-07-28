@@ -13,7 +13,7 @@ const sounds={
 		, match: "sounds/match.wav"
 		, mismatch: "sounds/mismatch.wav"
 		, warning:"sounds/alert.wav"
-		, finish:"sounds/finish.wav"
+		, finish:"sounds/finish.mp3"
 		, confirm:"sounds/confirm.wav"
 };
 
